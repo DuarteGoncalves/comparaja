@@ -14,8 +14,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class ProductDAO {
 
-    private static final String challengeQuery = "SELECT prod.data FROM products prod INNER JOIN providers prov ON prod.provider_id = prov.id WHERE prov.is_active AND prod.data -> 'internet_download_speed_in_mbs' IS NOT NULL ";
-    private static final String productQuery = "SELECT prod.id AS id, prov.name as providerName, prov.logo_url as providerLogoURL, prod.is_sponsored AS isSponsored, prod.data AS json FROM products prod INNER JOIN providers prov ON prod.provider_id = prov.id WHERE prov.is_active AND prod.data -> 'internet_download_speed_in_mbs' IS NOT NULL ";
+    private static final String PRODUCT_DTO_SELECT = "SELECT prod.id AS id, prov.name as providerName, prov.logo_url as providerLogoURL, prod.is_sponsored AS isSponsored, prod.data AS json ";
+    private static final String FROM_AND_WHERE = "FROM products prod INNER JOIN providers prov ON prod.provider_id = prov.id INNER JOIN verticals vert ON prod.vertical_id = vert.id WHERE prov.is_active AND vert.code = 'BB' ";
+    private static final String CHALLENGE_QUERY = "SELECT * " + FROM_AND_WHERE;
+    private static final String PRODUCT_SELECT = PRODUCT_DTO_SELECT + FROM_AND_WHERE;
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -27,13 +29,13 @@ public class ProductDAO {
     }
 
     public List<String> getChallengeQuery() {
-        List<String> results = jdbcTemplate.queryForList(challengeQuery, String.class);
+        List<String> results = jdbcTemplate.queryForList(CHALLENGE_QUERY, String.class);
         return results;
     }
 
     public List<ProductDTO> getProducts(Integer minDownloadSpeed, Integer minMobilePhoneData, Integer phones,
             Integer maxPrice) {
-        String filterQuery = productQuery;
+        String filterQuery = PRODUCT_SELECT;
         List<Object> argsList = new ArrayList<>();
         if (minDownloadSpeed != null) {
             filterQuery = filterQuery + "AND CAST ( prod.data ->> 'internet_download_speed_in_mbs' AS Integer ) >= ? ";

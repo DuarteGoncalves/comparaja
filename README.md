@@ -63,6 +63,10 @@ servers:
 
 To test the application use `the_api_key` to authenticate your requests.
 
+![swagger](/doc_images/swagger_01.png)
+![swagger](/doc_images/swagger_02.png)
+![swagger](/doc_images/swagger_03.png)
+
 ## Frontend web application
 This project uses React to build a single page web application and a local Node.js installation is required.
 

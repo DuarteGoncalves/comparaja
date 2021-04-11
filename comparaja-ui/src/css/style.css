@@ -1,0 +1,13 @@
+:root {
+    height: 100%;
+    --amplify-primary-color: #3f51b5;
+    background-image: linear-gradient(
+        rgba(173, 216, 230, 0.514),
+        rgba(255, 255, 224, 0.521)
+      ),
+      url(https://source.unsplash.com/1920x1080/?sunset);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    background-blend-mode: saturation;
+  }

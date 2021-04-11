@@ -32,7 +32,7 @@ const useCustomStyles = () => {
           "#23a6d5"
         )}, .7), rgba(${hexToRgb("#23d5ab")}, .7))`,
         backgroundSize: "400% 400%",
-        animation: "gradient 4s ease infinite",
+        animation: "gradient 7s ease infinite",
       },
       fab: {
         width: "inherit",
@@ -47,7 +47,7 @@ const useCustomStyles = () => {
           "#E6B859"
         )}, .5), rgba(${hexToRgb("#FCDB4D")}, .3))`,
         backgroundSize: "400% 400%",
-        animation: "gradient 7s ease infinite",
+        animation: "gradient 8s ease infinite",
       },
       list: {
         padding: theme.spacing(2),
@@ -71,7 +71,7 @@ const useCustomStyles = () => {
         borderRadius: customBorder,
         border: "solid",
         borderColor: "gold",
-        animation: "spin 5s linear infinite",        
+        animation: "spin 3.5s linear infinite",        
       },
       "@global": {
         "@keyframes gradient": {

@@ -1,0 +1,166 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "0.0.1",
+    "title": "ComparaJá Code Challenge API"
+  },
+  "servers": [
+    {
+      "url": "{protocol}://api.comparaja.pt:{port}",
+      "variables": {
+        "protocol": {
+          "enum": [
+            "http"
+          ],
+          "default": "http"
+        },
+        "port": {
+          "enum": [
+            "8080"
+          ],
+          "default": "8080"
+        }
+      }
+    }
+  ],
+  "security": [
+    {
+      "ApiKeyAuth": []
+    }
+  ],
+  "paths": {
+    "/product": {
+      "get": {
+        "summary": "Search products",
+        "operationId": "searchProducts",
+        "tags": [
+          "Product"
+        ],
+        "parameters": [
+          {
+            "name": "min_download_speed",
+            "in": "query",
+            "description": "The minimum internet download speed in mb/s",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "min_mobile_phone_data",
+            "in": "query",
+            "description": "The minimum mobile phone data available gb",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "phones",
+            "in": "query",
+            "description": "Exact number of mobile phones to be included",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "max_price",
+            "in": "query",
+            "description": "Max price of the product",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "An array of products",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Products"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "No matches found"
+          },
+          "401": {
+            "description": "Unauthrized"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "in": "query",
+        "name": "api_key"
+      }
+    },
+    "schemas": {
+      "Product": {
+        "type": "object",
+        "required": [
+          "licensePlate"
+        ],
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "providerName": {
+            "type": "string"
+          },
+          "providerLogoURL": {
+            "type": "string"
+          },
+          "isSponsored": {
+            "type": "boolean"
+          },
+          "data": {
+            "$ref": "#/components/schemas/ProductData"
+          }
+        }
+      },
+      "ProductData": {
+        "type": "object",
+        "required": [
+          "licensePlate"
+        ],
+        "properties": {
+          "p": {
+            "type": "number"
+          },
+          "internet_upload_speed_in_mbs": {
+            "type": "number"
+          },
+          "internet_download_speed_in_mbs": {
+            "type": "number"
+          },
+          "mobile_phone_count": {
+            "type": "number"
+          },
+          "price": {
+            "type": "number"
+          },
+          "tv_channels": {
+            "type": "number"
+          },
+          "mobile_phone_data_in_gbps": {
+            "type": "number"
+          }
+        }
+      },
+      "Products": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Product"
+        }
+      }
+    }
+  }
+}
